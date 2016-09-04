@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="root">
+            <reference name="after_body_start">
+                <block type="linkwise/lnkws" name="linkwise_after_body_start" template="linkwise/script.phtml"/>
+            </reference>
+        </reference>
+    </default>
+
+    <checkout_onepage_success>
+        <reference name="root">
+            <reference name="after_body_start">
+                <block type="linkwise/lnkws" name="linkwise_success" template="linkwise/success.phtml"/>
+            </reference>
+        </reference>
+    </checkout_onepage_success>
+</layout>   
+	

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <DigitalUp_Linkwise>
+            <version>0.1.0</version>
+        </DigitalUp_Linkwise>
+    </modules>
+    <global>
+        <helpers>
+            <linkwise>
+                <class>DigitalUp_Linkwise_Helper</class>
+            </linkwise>
+        </helpers>
+        <blocks>
+            <linkwise>
+                <class>DigitalUp_Linkwise_Block</class>
+            </linkwise>
+        </blocks>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <linkwise>
+                    <file>linkwise.xml</file>
+                </linkwise>
+            </updates>
+        </layout>
+    </frontend>
+</config> 

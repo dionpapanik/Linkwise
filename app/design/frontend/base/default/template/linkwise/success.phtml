@@ -1,0 +1,22 @@
+<?php // if ($this->isEnabled()): ?>
+
+    <script type="text/javascript" src="https://go.linkwi.se/delivery/lwc/lwc.js"></script>
+    <script type="text/javascript">
+        Linkwise.load_action(
+            "<?php echo $this->getLinkwiseId(); ?>",
+            "<?php echo $this->getLastOrderIncrementId(); ?>",
+            "1::<?php echo $this->getTotal(); ?>",
+            "",
+            "pending"
+        );
+    </script>
+    <noscript>
+        <img
+            src="https://go.linkwi.se/delivery/acl.php?cam_id=<?php echo $this->getLinkwiseId(); ?>&trans_id=<?php echo $this->getLastOrderIncrementId(); ?>&sale_amount=1::<?php echo $this->getTotal(); ?>&adv_subid=&status=pending"
+            style="width:0px;height:0px;"/>
+    </noscript>
+
+
+vgergerdd
+
+<?php // endif; ?>

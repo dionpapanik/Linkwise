@@ -1,0 +1,25 @@
+<?php $helper = Mage::helper('linkwise'); ?>
+<?php if ($helper->isEnabled()): ?>
+
+    <script async src="//go.linkwi.se/delivery/js/tl.js"></script>
+    <script>
+        window.lw = window.lw || function () {
+                (lw.q = lw.q || []).push(arguments)
+            };
+        lw.l = +new Date;
+        lw("setProgram", "<?php echo $helper->getLinkwiseId(); ?>");
+        lw("setDecimal", "<?php echo $helper->getDecimalSeparator(); ?>");
+    </script>
+
+    <script>
+        <?php  echo $this->getLinkwiseData(); ?>
+    </script>
+<?php endif;
+
+
+// echo $this->getCurrentPageType();
+
+
+?>
+
+

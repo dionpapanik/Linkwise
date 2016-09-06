@@ -57,13 +57,12 @@ class DigitalUp_Linkwise_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return  bool
      */
-    public function isTaxConfig()
+    public function getTaxConfig()
     {
         if (is_null($this->_taxConfig)) {
-            $this->_taxConfig = (bool)Mage::getStoreConfig(self::GET_PRICE_TAX_CONFIG);
+            $this->_taxConfig = floatval(Mage::getStoreConfig(self::GET_PRICE_TAX_CONFIG));
         }
         return $this->_taxConfig;
     }
 
 }
-	 

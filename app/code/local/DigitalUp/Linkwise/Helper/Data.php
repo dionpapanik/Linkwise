@@ -55,7 +55,7 @@ class DigitalUp_Linkwise_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Show product prices with or without tax
      *
-     * @return  bool
+     * @return  float
      */
     public function getTaxConfig()
     {

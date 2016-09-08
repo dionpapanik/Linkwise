@@ -53,17 +53,73 @@ class DigitalUp_Linkwise_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Show product prices with or without tax
+     * Get the percentage of tax
      *
-     * @return  bool
+     * @return  float
      */
-    public function isTaxConfig()
+    public function getTaxConfig()
     {
         if (is_null($this->_taxConfig)) {
-            $this->_taxConfig = (bool)Mage::getStoreConfig(self::GET_PRICE_TAX_CONFIG);
+            $this->_taxConfig = floatval(Mage::getStoreConfig(self::GET_PRICE_TAX_CONFIG));
         }
         return $this->_taxConfig;
     }
 
+<<<<<<< HEAD
+    /**
+     * retrieve the final price after rules and specal prices
+     * from catalog model
+     * load the events of frontend
+     * get the final price based on the event-observer patern
+     *
+     * works with getFinalPrice method!
+     *
+     * @return float
+     */
+    public function getCatalogLnkwsPrices($product)
+    {
+        $tax_percentage = $this->getTaxConfig();
+        $tax = floatval(1 + ($tax_percentage / 100)); // transform 24 into 1.24 for calc purposes
+
+        Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_FRONTEND, Mage_Core_Model_App_Area::PART_EVENTS);
+        $price = $product->getFinalPrice();
+        $price = Mage::helper('tax')->getPrice($product, $price);
+
+        //return
+        if ($tax_percentage == 0) {
+            return $price;
+        }
+        return round($price / $tax, 2);
+    }
+
+    /**
+     * retrieve the final price after rules and specal prices
+     * from order model
+     * load the events of frontend
+     * get the final price based on the event-observer patern
+     *
+     * works with getPrice method!
+     * returns null with final @fixme
+     *
+     * @return float
+     */
+    public function getOrderLnkwsPrices($product)
+    {
+        $tax_percentage = $this->getTaxConfig();
+        $tax = floatval(1 + ($tax_percentage / 100)); // transform 24 into 1.24 for calc purposes
+
+        Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_FRONTEND, Mage_Core_Model_App_Area::PART_EVENTS);
+        $price = $product->getPrice();
+        $price = Mage::helper('tax')->getPrice($product, $price);
+
+        //return
+        if ($tax_percentage == 0) {
+            return $price;
+        }
+        return round($price / $tax, 2);
+    }
+
 }
-	 
+=======
+}
+>>>>>>> origin/change-success

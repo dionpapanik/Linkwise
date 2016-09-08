@@ -11,15 +11,11 @@
         lw("setDecimal", "<?php echo $helper->getDecimalSeparator(); ?>");
     </script>
 
-    <script>
-        <?php  echo $this->getLinkwiseData(); ?>
-    </script>
-<?php endif;
+    <?php if ($this->getLinkwiseData()): ?>
+        <script>
+            <?php  echo $this->getLinkwiseData(); ?>
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
 
-
-// echo $this->getCurrentPageType();
-
-
-?>
-
-
+<?php // Zend_Debug::dump($this->getLinkwiseData()); ?>

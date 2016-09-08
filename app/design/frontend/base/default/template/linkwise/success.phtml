@@ -1,22 +1,16 @@
-<?php // if ($this->isEnabled()): ?>
+<?php $helper = Mage::helper('linkwise'); ?>
+<?php if ($helper->isEnabled()): ?>
 
-    <script type="text/javascript" src="https://go.linkwi.se/delivery/lwc/lwc.js"></script>
-    <script type="text/javascript">
-        Linkwise.load_action(
-            "<?php echo $this->getLinkwiseId(); ?>",
-            "<?php echo $this->getLastOrderIncrementId(); ?>",
-            "1::<?php echo $this->getTotal(); ?>",
-            "",
-            "pending"
-        );
+    <script>
+        lw("setCurrency", "978"); // 978 for €
+        <?php echo $this->dataToJS();?>
     </script>
     <noscript>
         <img
-            src="https://go.linkwi.se/delivery/acl.php?cam_id=<?php echo $this->getLinkwiseId(); ?>&trans_id=<?php echo $this->getLastOrderIncrementId(); ?>&sale_amount=1::<?php echo $this->getTotal(); ?>&adv_subid=&status=pending"
+            src="//go.linkwi.se/delivery/acl.php?program=<?php echo $helper->getLinkwiseId(); ?>&amp;decimal=<?php echo $helper->getDecimalSeparator(); ?>&amp;<?php echo $this->dataToURL(); ?>"
             style="width:0px;height:0px;"/>
     </noscript>
 
+<?php endif; ?>
 
-vgergerdd
-
-<?php // endif; ?>
+<?php // Zend_Debug::dump($this->getSuccessData()); ?>

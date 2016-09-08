@@ -65,6 +65,7 @@ class DigitalUp_Linkwise_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_taxConfig;
     }
 
+<<<<<<< HEAD
     /**
      * retrieve the final price after rules and specal prices
      * from catalog model
@@ -119,3 +120,6 @@ class DigitalUp_Linkwise_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
 }
+=======
+}
+>>>>>>> origin/change-success

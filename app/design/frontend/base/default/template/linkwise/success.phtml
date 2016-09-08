@@ -3,14 +3,14 @@
 
     <script>
         lw("setCurrency", "978"); // 978 for €
-        <?php $data =  $this->getSuccessData();
-        echo $data[0];
-        ?>
+        <?php echo $this->dataToJS();?>
     </script>
     <noscript>
         <img
-            src="//go.linkwi.se/delivery/acl.php?program=<?php echo $helper->getLinkwiseId(); ?>&amp;decimal=<?php echo $helper->getDecimalSeparator(); ?>&amp;  <?php echo $data[1]; ?>&amp;status=pending&amp;orderid=unique_order_ID "
+            src="//go.linkwi.se/delivery/acl.php?program=<?php echo $helper->getLinkwiseId(); ?>&amp;decimal=<?php echo $helper->getDecimalSeparator(); ?>&amp;<?php echo $this->dataToURL(); ?>"
             style="width:0px;height:0px;"/>
     </noscript>
 
 <?php endif; ?>
+
+<?php // Zend_Debug::dump($this->getSuccessData()); ?>

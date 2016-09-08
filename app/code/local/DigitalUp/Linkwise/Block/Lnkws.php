@@ -5,6 +5,7 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
 
     public function getLinkwiseData()
     {
+        $helper = Mage::helper('linkwise');
         $type = $this->getCurrentPageType();
         switch ($type) {
             case 'cms/index/index': //home page
@@ -26,7 +27,7 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
                     $params .= PHP_EOL .
                         'lw("addItem", {' . PHP_EOL .
                         'id: "' . $product->getSku() . '",' . PHP_EOL .
-                        'price: "' . $this->_getLnkwsPrices($product) . '"' . PHP_EOL .
+                        'price: "' . $helper->getCatalogLnkwsPrices($product) . '"' . PHP_EOL .
                         '});';
                 }
                 $params .= PHP_EOL . 'lw("listItems");';
@@ -38,7 +39,7 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
                 $params = PHP_EOL .
                     'lw("addItem", {' . PHP_EOL .
                     'id: "' . $product->getSku() . '",' . PHP_EOL .
-                    'price: "' . $this->_getLnkwsPrices($product) . '"' . PHP_EOL .
+                    'price: "' . $helper->getCatalogLnkwsPrices($product) . '"' . PHP_EOL .
                     '});' . PHP_EOL .
                     'lw("viewItem");';
 
@@ -55,7 +56,7 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
                         $params .= PHP_EOL .
                             'lw("addItem", {' . PHP_EOL .
                             'id: "' . $this->_getProductSku($product) . '",' . PHP_EOL .
-                            'price: "' . $this->_getLnkwsPrices($product) . '",' . PHP_EOL .
+                            'price: "' . $helper->getCatalogLnkwsPrices($product) . '",' . PHP_EOL .
                             'quantity: "' . (int)$item->getQty() . '"' . PHP_EOL .
                             '});' . PHP_EOL;
                     }
@@ -103,7 +104,7 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
      * used only in cart case
      * returns the sku of the simple and the sku of the config
      * works only for the getAllVisibleItems() function
-     * CAUTION if use getAllItems() needs to implemented differently!
+     * CAUTION if use getAllItems() needs to implemented diferently!
      *
      * @todo implement it for rest types
      *
@@ -118,48 +119,4 @@ class DigitalUp_Linkwise_Block_Lnkws extends Mage_Core_Block_Template
         }
         return $id;
     }
-
-    /**
-     * return the prices for Linkwise without VAT.
-     * @todo maybe needs to implemented in a clearer way!!
-     *
-     * @return string
-     */
-    private function _getLnkwsPrices($product)
-    {
-        // get the tax configuration from admin
-        $helper = Mage::helper('linkwise');
-        $tax_percentage = $helper->getTaxConfig();
-        $tax = floatval(1 + ($tax_percentage / 100)); // transform 24 into 1.24 for calc purposes
-
-        //calculate right prices
-        $price = 0;
-        $special_price = 0;
-        $catalog_rule_price = 0;
-
-        if (!$product->getHideSpecialPrice()) {
-            $price = $product->getPrice();
-            $special_price = $product->getSpecialPrice();
-            $catalog_rule_price = Mage::getModel('catalogrule/rule')->calcProductPriceRule($product, $product->getPrice());
-            if ($special_price <= $catalog_rule_price && $special_price != 0) {
-                $tmp = $special_price;
-            } else {
-                $tmp = $catalog_rule_price;
-            }
-            if ($tmp < $price && $tmp != 0) {
-                $sale_price = number_format(($tmp), 2, '.', '');
-            } else {
-                $sale_price = number_format(($price), 2, '.', '');
-            }
-        } else {
-            $sale_price = number_format(($price), 2, '.', '');
-        }
-
-        //return
-        if ($tax_percentage == 0) {
-            return $sale_price;
-        }
-        return round($sale_price / $tax, 2);
-    }
-
 }
